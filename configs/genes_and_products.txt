@@ -1,0 +1,32 @@
+# Genes and products that should not be considered in 
+# the analysis can be commented out by using the #-symbol
+#
+#### Genes ####
+S
+# M
+# N
+# E
+# ORF3a
+# ORF6
+# ORF7a
+# ORF7b
+# ORF8
+# ORF1a
+# ORF1b
+#
+#### Products ####
+# leader
+nsp2
+# nsp4
+# 3C
+# nsp6
+# nsp7
+# nsp8
+# nsp9
+# nsp10
+# RdRp
+# helicase
+# exonuclease
+# endornase
+# methyltransferase
+# ORF10

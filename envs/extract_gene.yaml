@@ -1,0 +1,5 @@
+name: extract_gene
+channels:
+  - bioconda
+dependencies:
+  - hyphy=2.5.8

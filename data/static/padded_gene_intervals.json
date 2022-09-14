@@ -1,0 +1,137 @@
+{
+    "S": {
+        "trim_from": 20000,
+        "trim_to": 27000,
+        "n_frac": 0.05
+    },
+    "M": {
+        "trim_from": 25000,
+        "trim_to": 30000,
+        "n_frac": 0.01
+    },
+    "N": {
+        "trim_from": 26000,
+        "trim_to": 35000,
+        "n_frac": 0.01
+    },
+    "E": {
+        "trim_from": 25500,
+        "trim_to": 27000,
+        "n_frac": 0.01
+    },
+    "ORF3a": {
+        "trim_from": 24000,
+        "trim_to": 27000,
+        "n_frac": 0.01
+    },
+    "ORF6": {
+        "trim_from": 26000,
+        "trim_to": 30000,
+        "n_frac": 0.01
+    },
+    "ORF7a": {
+        "trim_from": 26000,
+        "trim_to": 35000,
+        "n_frac": 0.01
+    },
+    "ORF7b": {
+        "trim_from": 27500,
+        "trim_to": 28000,
+        "n_frac": 0.01
+    },
+    "ORF8": {
+        "trim_from": 26000,
+        "trim_to": 35000,
+        "n_frac": 0.01
+    },
+    "ORF10": {
+        "trim_from": 29500,
+        "trim_to": 29800,
+        "n_frac": 0.01
+    },
+    "ORF1a": {
+        "trim_from": 1,
+        "trim_to": 15000,
+        "n_frac": 0.001
+    },
+    "ORF1b": {
+        "trim_from": 12000,
+        "trim_to": 24000,
+        "n_frac": 0.001
+    },
+    "leader": {
+        "trim_from": 1,
+        "trim_to": 1000,
+        "n_frac": 0.001
+    },
+    "nsp2": {
+        "trim_from": 500,
+        "trim_to": 3000,
+        "n_frac": 0.001
+    },
+    "nsp3": {
+        "trim_from": 2000,
+        "trim_to": 10000,
+        "n_frac": 0.001
+    },
+    "nsp4": {
+        "trim_from": 8000,
+        "trim_to": 11000,
+        "n_frac": 0.001
+    },
+    "3C": {
+        "trim_from": 9000,
+        "trim_to": 12000,
+        "n_frac": 0.001
+    },
+    "nsp6": {
+        "trim_from": 10500,
+        "trim_to": 12500,
+        "n_frac": 0.001
+    },
+    "nsp7": {
+        "trim_from": 11500,
+        "trim_to": 12500,
+        "n_frac": 0.001
+    },
+    "nsp8": {
+        "trim_from": 11500,
+        "trim_to": 13000,
+        "n_frac": 0.001
+    },
+    "nsp9": {
+        "trim_from": 12000,
+        "trim_to": 13500,
+        "n_frac": 0.001
+    },
+    "nsp10": {
+        "trim_from": 12500,
+        "trim_to": 14000,
+        "n_frac": 0.001
+    },
+    "RdRp": {
+        "trim_from": 13000,
+        "trim_to": 17000,
+        "n_frac": 0.001
+    },
+    "helicase": {
+        "trim_from": 15500,
+        "trim_to": 18500,
+        "n_frac": 0.001
+    },
+    "exonuclease": {
+        "trim_from": 17500,
+        "trim_to": 20000,
+        "n_frac": 0.001
+    },
+    "endornase": {
+        "trim_from": 19000,
+        "trim_to": 21000,
+        "n_frac": 0.001
+    },
+    "methyltransferase": {
+        "trim_from": 20000,
+        "trim_to": 22000,
+        "n_frac": 0.001
+    }
+}

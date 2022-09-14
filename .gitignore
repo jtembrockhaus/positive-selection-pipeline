@@ -1,0 +1,9 @@
+# nextflow
+.nextflow*
+work
+
+# input data
+data/input/*
+
+# hyphy-analysis scripts
+ressources/hyphy-analyses*
