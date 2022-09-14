@@ -3,7 +3,7 @@
 work
 
 # input data
-data/input/*
+# data/input/*
 
 # hyphy-analysis scripts
 ressources/hyphy-analyses*
