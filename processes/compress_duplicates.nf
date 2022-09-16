@@ -16,10 +16,10 @@ process COMPRESS_DUPLICATES {
     path gene_nuc_ch
 
     output:
-    path "${gene}_protein_compressed.fas", emit: gene_protein_compressed_ch
-    path "${gene}_nuc_compressed.fas", emit: gene_nuc_compressed_ch
-    path "${gene}_protein_duplicates.json", emit: gene_protein_duplicates_ch
-    path "${gene}_nuc_duplicates.json", emit: gene_nuc_duplicates_ch
+    path "${gene}_protein_compressed.fas", emit: protein_seqs_compressed_ch
+    path "${gene}_nuc_compressed.fas", emit: nuc_seqs_compressed_ch
+    path "${gene}_protein_duplicates.json", emit: protein_duplicates_ch
+    path "${gene}_nuc_duplicates.json", emit: nuc_duplicates_ch
 
     script:
     """

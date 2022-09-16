@@ -1,0 +1,7 @@
+name: create_protein_msa
+channels:
+  - bioconda
+dependencies:
+  - mafft=7.310
+  - python=3.9.12
+  - biopython=1.78

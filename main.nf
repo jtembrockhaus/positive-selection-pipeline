@@ -8,9 +8,10 @@ Based on a research project by Sergei Pond
 
 
 /**************************
-* HELP MESSAGE
+* HELP AND DEFAULT MESSAGE
 **************************/
 if (params.help) { exit 0, help_message() }
+default_message()
 // TODO Add a check whether hyphy-analysis was already set up
 
 
@@ -39,17 +40,17 @@ if (!sequences_file.exists() || !metadata_file.exists()) {
 // TODO Add a check for required columns in metadata
 // TODO Add the possibility to use compressed input files (e.g. sequences.fasta.gz)
 // --gene_list
-gene_file = params.gene_list ? new File(params.gene_list) : new File("configs/genes_and_products.txt")
+gene_file = new File(params.gene_list)
 if (!gene_file.exists()){
   exit 1, "File $params.gene_list provided for --gene_list does not exist."
 } else {
   genes = get_genes_from_file(gene_file)
   genes_ch = Channel.from(genes)
 }
-// --gene_trim_interval
-trim_file = params.gene_trim_interval ? new File(params.gene_trim_interval) : new File("data/static/padded_gene_intervals.json")
+// --gene_trim_intervals
+trim_file = new File(params.gene_trim_intervals)
 if (!trim_file.exists()){
-  exit 1, "File $params.gene_trim_interval provided for --gene_trim_interval does not exist."
+  exit 1, "File $params.gene_trim_intervals provided for --gene_trim_intervals does not exist."
 } else {
   trim_intervals = get_gene_trim_intervals(trim_file, genes)
   trim_from_ch = Channel.from(trim_intervals*.get(0))
@@ -61,7 +62,8 @@ if (!trim_file.exists()){
 * PROCESSES
 **************************/
 include { EXTRACT_GENE } from "./processes/extract_gene.nf"
-include {COMPRESS_DUPLICATES} from "./processes/compress_duplicates.nf"
+include { COMPRESS_DUPLICATES } from "./processes/compress_duplicates.nf"
+include { CREATE_PROTEIN_MSA } from './processes/create_protein_msa.nf'
 
 
 /**************************
@@ -69,14 +71,35 @@ include {COMPRESS_DUPLICATES} from "./processes/compress_duplicates.nf"
 **************************/
 workflow {
   EXTRACT_GENE(sequences_ch, metadata_ch, genes_ch, trim_from_ch, trim_to_ch, n_frac_ch)
-  gene_protein_ch = EXTRACT_GENE.out.gene_protein_ch
-  gene_nuc_ch = EXTRACT_GENE.out.gene_nuc_ch
+  protein_seqs_ch = EXTRACT_GENE.out.protein_seqs_ch
+  nuc_seqs_ch = EXTRACT_GENE.out.nuc_seqs_ch
 
-  COMPRESS_DUPLICATES(genes_ch, gene_protein_ch, gene_nuc_ch)
-  gene_protein_compressed_ch = COMPRESS_DUPLICATES.out.gene_protein_compressed_ch
-  gene_nuc_compressed_ch = COMPRESS_DUPLICATES.out.gene_nuc_compressed_ch
-  gene_protein_duplicates_ch = COMPRESS_DUPLICATES.out.gene_protein_duplicates_ch
-  gene_nuc_duplicates_ch = COMPRESS_DUPLICATES.out.gene_nuc_duplicates_ch
+  COMPRESS_DUPLICATES(genes_ch, protein_seqs_ch, nuc_seqs_ch)
+  protein_seqs_compressed_ch = COMPRESS_DUPLICATES.out.protein_seqs_compressed_ch
+  nuc_seqs_compressed_ch = COMPRESS_DUPLICATES.out.nuc_seqs_compressed_ch
+  protein_duplicates_ch = COMPRESS_DUPLICATES.out.protein_duplicates_ch
+  nuc_duplicates_ch = COMPRESS_DUPLICATES.out.nuc_duplicates_ch
+
+  CREATE_PROTEIN_MSA(genes_ch, protein_seqs_compressed_ch)
+  protein_msa_ch = CREATE_PROTEIN_MSA.out.protein_msa_ch
+}
+
+/*************
+* DEFAULT MESSAGE
+*************/
+def default_message() {
+    log.info """
+    ______________________________________
+    Workflow: Positive Selection Analysis Pipeline
+    Profile:                $workflow.profile
+    Current User:           $workflow.userName
+    Nextflow-version:       $nextflow.version
+    Starting time:          $nextflow.timestamp
+    Workflow hash:          $workflow.commitId
+        --data_dir          $params.data_dir
+        --max_cores         $params.max_cores
+    ______________________________________
+    """.stripIndent()
 }
 
 /*************
@@ -96,7 +119,7 @@ def help_message() {
     Optional arguments:
     --gene_list                 Path to file containing a list of genes and products to be analyzed
                                 [default: configs/genes_and_products.txt]
-    --gene_trim_interval        Path to file containing padded coordinate-ranges where the gene is expected to be 
+    --gene_trim_intervals        Path to file containing padded coordinate-ranges where the gene is expected to be 
                                 and tolerated N fractions for the gene extraction in JSON format
                                 [default: data/static/padded_gene_intervals.json]
 

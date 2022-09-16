@@ -19,8 +19,8 @@ process EXTRACT_GENE {
     val n_frac
 
     output:
-    path "${gene}_protein.fas", emit: gene_protein_ch
-    path "${gene}_nuc.fas", emit: gene_nuc_ch
+    path "${gene}_protein.fas", emit: protein_seqs_ch
+    path "${gene}_nuc.fas", emit: nuc_seqs_ch
 
     script:
     PREMSA="${projectDir}/ressources/hyphy-analyses/codon-msa/pre-msa.bf"
