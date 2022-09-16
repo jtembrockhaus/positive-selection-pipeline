@@ -61,6 +61,7 @@ if (!trim_file.exists()){
 * PROCESSES
 **************************/
 include { EXTRACT_GENE } from "./processes/extract_gene.nf"
+include {COMPRESS_DUPLICATES} from "./processes/compress_duplicates.nf"
 
 
 /**************************
@@ -70,6 +71,12 @@ workflow {
   EXTRACT_GENE(sequences_ch, metadata_ch, genes_ch, trim_from_ch, trim_to_ch, n_frac_ch)
   gene_protein_ch = EXTRACT_GENE.out.gene_protein_ch
   gene_nuc_ch = EXTRACT_GENE.out.gene_nuc_ch
+
+  COMPRESS_DUPLICATES(genes_ch, gene_protein_ch, gene_nuc_ch)
+  gene_protein_compressed_ch = COMPRESS_DUPLICATES.out.gene_protein_compressed_ch
+  gene_nuc_compressed_ch = COMPRESS_DUPLICATES.out.gene_nuc_compressed_ch
+  gene_protein_duplicates_ch = COMPRESS_DUPLICATES.out.gene_protein_duplicates_ch
+  gene_nuc_duplicates_ch = COMPRESS_DUPLICATES.out.gene_nuc_duplicates_ch
 }
 
 /*************

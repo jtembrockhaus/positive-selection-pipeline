@@ -1,3 +1,5 @@
+#!/usr/bin/env nextflow
+
 /*
  * Extract the appropriate gene segment from input genomes 
  * using codon-aware alignment, filter based on N content 
