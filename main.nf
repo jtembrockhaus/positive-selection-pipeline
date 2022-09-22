@@ -64,6 +64,7 @@ if (!trim_file.exists()){
 include { EXTRACT_GENE } from "./processes/extract_gene.nf"
 include { COMPRESS_DUPLICATES } from "./processes/compress_duplicates.nf"
 include { CREATE_PROTEIN_MSA } from './processes/create_protein_msa.nf'
+include { CREATE_NUC_MSA } from "./processes/create_nuc_msa.nf"
 
 
 /**************************
@@ -82,6 +83,10 @@ workflow {
 
   CREATE_PROTEIN_MSA(genes_ch, protein_seqs_compressed_ch)
   protein_msa_ch = CREATE_PROTEIN_MSA.out.protein_msa_ch
+
+  CREATE_NUC_MSA(genes_ch, protein_msa_ch, nuc_seqs_ch)
+  nuc_msa_compressed_ch = CREATE_NUC_MSA.out.nuc_msa_compressed_ch
+  nuc_msa_duplicates_ch = CREATE_NUC_MSA.out.nuc_msa_duplicates_ch
 }
 
 /*************

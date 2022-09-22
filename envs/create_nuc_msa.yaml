@@ -1,0 +1,5 @@
+name: create_nuc_msa
+channels:
+  - bioconda
+dependencies:
+  - hyphy=2.5.8
