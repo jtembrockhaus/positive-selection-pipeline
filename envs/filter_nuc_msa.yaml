@@ -1,4 +1,4 @@
-name: extract_gene
+name: filter_nuc_msa
 channels:
   - bioconda
   - conda-forge

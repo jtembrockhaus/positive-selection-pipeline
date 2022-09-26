@@ -66,6 +66,7 @@ include { COMPRESS_DUPLICATES } from "./processes/compress_duplicates.nf"
 include { CREATE_PROTEIN_MSA } from './processes/create_protein_msa.nf'
 include { CREATE_NUC_MSA } from "./processes/create_nuc_msa.nf"
 include { MERGE_DUPLICATES } from "./processes/merge_duplicates.nf"
+include { FILTER_NUC_MSA } from "./processes/filter_nuc_msa.nf"
 
 
 /**************************
@@ -90,12 +91,16 @@ workflow {
   nuc_msa_duplicates_ch = CREATE_NUC_MSA.out.nuc_msa_duplicates_ch
 
   MERGE_DUPLICATES(genes_ch, nuc_duplicates_ch, nuc_msa_duplicates_ch, nuc_msa_compressed_ch)
+  nuc_msa_merged_ch = MERGE_DUPLICATES.out.nuc_msa_merged_ch
   nuc_msa_merged_duplicates_ch = MERGE_DUPLICATES.out.nuc_msa_merged_duplicates_ch
+
+  FILTER_NUC_MSA(genes_ch, nuc_msa_merged_ch, nuc_msa_merged_duplicates_ch)
+  nuc_msa_filtered_ch = FILTER_NUC_MSA.out.nuc_msa_filtered_ch
 }
 
-/*************
+/**************************
 * DEFAULT MESSAGE
-*************/
+**************************/
 def default_message() {
     log.info """
     ______________________________________
@@ -111,9 +116,9 @@ def default_message() {
     """.stripIndent()
 }
 
-/*************
+/**************************
 * --help
-*************/
+**************************/
 def help_message() {
     log.info """
     ____________________________________________________________________________________________

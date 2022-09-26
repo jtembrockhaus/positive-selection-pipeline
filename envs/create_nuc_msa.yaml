@@ -1,5 +1,6 @@
 name: create_nuc_msa
 channels:
   - bioconda
+  - conda-forge
 dependencies:
-  - hyphy=2.5.8
+  - hyphy=2.5.19
