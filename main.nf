@@ -71,6 +71,7 @@ include { BUILD_TREE } from "./processes/build_tree.nf"
 include { SLAC_ANALYSIS } from "./processes/slac_analysis.nf"
 include { FEL_ANALYSIS } from "./processes/fel_analysis.nf"
 include { MEME_ANALYSIS } from "./processes/meme_analysis.nf"
+include { FUBAR_ANALYSIS } from "./processes/fubar_analysis.nf"
 
 
 /**************************
@@ -112,6 +113,9 @@ workflow {
 
   MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
+
+  // FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  // fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
 }
 
 /**************************
