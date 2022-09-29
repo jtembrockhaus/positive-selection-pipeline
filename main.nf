@@ -131,7 +131,7 @@ def default_message() {
     Starting time:          $nextflow.timestamp
     Workflow hash:          $workflow.commitId
         --data_dir          $params.data_dir
-        --max_cores         $params.max_cores
+        --cpus              $params.cpus
     ______________________________________
     """.stripIndent()
 }
