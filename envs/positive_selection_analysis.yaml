@@ -1,0 +1,6 @@
+name: positive_selection_analysis
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - hyphy=2.5.19

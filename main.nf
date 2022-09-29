@@ -68,6 +68,9 @@ include { CREATE_NUC_MSA } from "./processes/create_nuc_msa.nf"
 include { MERGE_DUPLICATES } from "./processes/merge_duplicates.nf"
 include { FILTER_NUC_MSA } from "./processes/filter_nuc_msa.nf"
 include { BUILD_TREE } from "./processes/build_tree.nf"
+include { SLAC_ANALYSIS } from "./processes/slac_analysis.nf"
+include { FEL_ANALYSIS } from "./processes/fel_analysis.nf"
+include { MEME_ANALYSIS } from "./processes/meme_analysis.nf"
 
 
 /**************************
@@ -100,6 +103,15 @@ workflow {
 
   BUILD_TREE(genes_ch, nuc_msa_filtered_ch)
   newick_tree_ch = BUILD_TREE.out.newick_tree_ch
+
+  SLAC_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  slac_results_ch = SLAC_ANALYSIS.out.slac_results_ch
+
+  FEL_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  fel_results_ch = FEL_ANALYSIS.out.fel_results_ch
+
+  MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
 }
 
 /**************************
