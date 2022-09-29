@@ -1,0 +1,6 @@
+name: build_tree
+channels:
+  - bioconda
+dependencies:
+  - seqmagick=0.8.0
+  - rapidnj=2.3.2

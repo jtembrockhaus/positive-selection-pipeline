@@ -19,7 +19,6 @@ process FILTER_NUC_MSA {
     output:
     path "${gene}_nuc_msa_filtered.fas", emit: nuc_msa_filtered_ch
     
-
     script:
     COMPRESSOR="compressor.bf"
     COMPRESSOR2="compressor_2.bf"

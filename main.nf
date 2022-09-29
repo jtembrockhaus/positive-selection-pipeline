@@ -67,6 +67,7 @@ include { CREATE_PROTEIN_MSA } from './processes/create_protein_msa.nf'
 include { CREATE_NUC_MSA } from "./processes/create_nuc_msa.nf"
 include { MERGE_DUPLICATES } from "./processes/merge_duplicates.nf"
 include { FILTER_NUC_MSA } from "./processes/filter_nuc_msa.nf"
+include { BUILD_TREE } from "./processes/build_tree.nf"
 
 
 /**************************
@@ -96,6 +97,9 @@ workflow {
 
   FILTER_NUC_MSA(genes_ch, nuc_msa_merged_ch, nuc_msa_merged_duplicates_ch)
   nuc_msa_filtered_ch = FILTER_NUC_MSA.out.nuc_msa_filtered_ch
+
+  BUILD_TREE(genes_ch, nuc_msa_filtered_ch)
+  newick_tree_ch = BUILD_TREE.out.newick_tree_ch
 }
 
 /**************************
