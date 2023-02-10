@@ -1,0 +1,9 @@
+name: get_positions_under_ps_per_gene
+channels:
+  - anaconda
+  - plotly
+dependencies:
+  - python=3.9.12
+  - pandas=1.4.3
+  - plotly=5.9.0
+  - scipy=1.6.2

@@ -2,31 +2,31 @@
 # the analysis can be commented out by using the #-symbol
 #
 #### Genes ####
-# S
-# M
-# N
-# E
-# ORF3a
-# ORF6
-# ORF7a
-# ORF7b
-# ORF8
-# ORF1a
-# ORF1b
+S
+#M
+N
+#E
+#ORF3a
+#ORF6
+#ORF7a
+#ORF7b
+#ORF8
+#ORF1a
+#ORF1b // TODO Add reference for ORF1b to data/input/static/reference_genes/
 #
-#### Products ####
-# leader
-nsp2
-# nsp4
-# 3C
-# nsp6
-# nsp7
-# nsp8
-# nsp9
-# nsp10
-# RdRp
-# helicase
-# exonuclease
-# endornase
-# methyltransferase
-# ORF10
+##### Products ####
+#leader
+#nsp2
+#nsp4
+#3C
+#nsp6
+#nsp7
+#nsp8
+#nsp9
+#nsp10
+#RdRp
+#helicase
+#exonuclease
+#endornase
+#methyltransferase
+#ORF10

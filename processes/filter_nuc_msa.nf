@@ -18,6 +18,7 @@ process FILTER_NUC_MSA {
 
     output:
     path "${gene}_nuc_msa_filtered.fas", emit: nuc_msa_filtered_ch
+    path "${gene}_nuc_msa_variants_duplicates.json", emit: nuc_msa_variants_duplicates_ch
     
     script:
     COMPRESSOR="compressor.bf"

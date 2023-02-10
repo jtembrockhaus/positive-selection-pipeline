@@ -1,0 +1,6 @@
+name: compress_duplicates
+channels:
+  - anaconda
+dependencies:
+  - python=3.9.12
+  - biopython=1.78

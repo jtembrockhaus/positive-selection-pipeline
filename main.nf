@@ -72,6 +72,12 @@ include { SLAC_ANALYSIS } from "./processes/slac_analysis.nf"
 include { FEL_ANALYSIS } from "./processes/fel_analysis.nf"
 include { MEME_ANALYSIS } from "./processes/meme_analysis.nf"
 include { FUBAR_ANALYSIS } from "./processes/fubar_analysis.nf"
+include { PRIME_ANALYSIS } from "./processes/prime_analysis.nf"
+include { VISUALIZE_RESULTS } from "./processes/visualize_results.nf"
+include { GET_POSITIONS_UNDER_PS_PER_GENE } from "./processes/get_positions_under_ps_per_gene.nf"
+include { EXTRACT_EVOLUTIONARY_ANNOTATION } from "./processes/extract_evolutionary_annotation.nf"
+include { SUMMARIZE_SELECTION_ANALYSIS } from "./processes/summarize_selection_analysis.nf"
+
 
 
 /**************************
@@ -101,6 +107,7 @@ workflow {
 
   FILTER_NUC_MSA(genes_ch, nuc_msa_merged_ch, nuc_msa_merged_duplicates_ch)
   nuc_msa_filtered_ch = FILTER_NUC_MSA.out.nuc_msa_filtered_ch
+  nuc_msa_variants_duplicates_ch = FILTER_NUC_MSA.out.nuc_msa_variants_duplicates_ch
 
   BUILD_TREE(genes_ch, nuc_msa_filtered_ch)
   newick_tree_ch = BUILD_TREE.out.newick_tree_ch
@@ -114,8 +121,21 @@ workflow {
   MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
 
-  // FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
-  // fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
+  FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
+
+  PRIME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  prime_results_ch = PRIME_ANALYSIS.out.prime_results_ch
+
+  GET_POSITIONS_UNDER_PS_PER_GENE(genes_ch, fel_results_ch)
+  fel_sites_under_ps = GET_POSITIONS_UNDER_PS_PER_GENE.out.fel_sites_under_ps
+  total_sites = GET_POSITIONS_UNDER_PS_PER_GENE.out.total_sites
+
+  VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
+
+  // EXTRACT_EVOLUTIONARY_ANNOTATION(genes_ch, prime_results_ch, nuc_msa_merged_ch)
+
+  // SUMMARIZE_SELECTION_ANALYSIS(genes_ch, slac_results_ch, fel_results_ch, meme_results_ch, fubar_results_ch, nuc_msa_filtered_ch, nuc_msa_variants_duplicates_ch)
 }
 
 /**************************
