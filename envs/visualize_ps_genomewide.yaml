@@ -1,0 +1,8 @@
+name: visualize_ps_genomewide
+channels:
+  - anaconda
+  - plotly
+dependencies:
+  - python=3.9.12
+  - pandas=1.4.3
+  - plotly=5.9.0
