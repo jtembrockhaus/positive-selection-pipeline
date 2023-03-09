@@ -1,5 +1,4 @@
 import argparse
-import json
 import math
 import sys
 import pandas as pd
@@ -8,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.figure_factory as ff
+from subfuctions import load_json_file
 
 
 # CSS color names for classes
@@ -37,15 +37,6 @@ def get_super(x):
     super_s = "ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻᵃᵇᶜᵈᵉᶠᵍʰᶦʲᵏˡᵐⁿᵒᵖ۹ʳˢᵗᵘᵛʷˣʸᶻ⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾"
     res = x.maketrans(''.join(normal), ''.join(super_s))
     return x.translate(res)
-    
-# load FEL results
-def load_json_file(filename):
-    try:
-        json_dict = json.load(filename)
-        return json_dict
-    except Exception as e:
-        print(e)
-        sys.exit(1)
 
 # censor values at 10 such that values >10 are replaced by 10      
 def censoring_at_10(value):

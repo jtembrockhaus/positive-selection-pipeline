@@ -21,6 +21,7 @@ process EXTRACT_GENE {
     output:
     path "${gene}_protein.fas", emit: protein_seqs_ch
     path "${gene}_nuc.fas", emit: nuc_seqs_ch
+    path "${gene}_copies.json", emit: copies_ch
 
     script:
     PREMSA="${projectDir}/ressources/hyphy-analyses/codon-msa/pre-msa.bf"

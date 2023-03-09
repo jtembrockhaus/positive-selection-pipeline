@@ -4,7 +4,7 @@
 #### Genes ####
 S
 #M
-N
+#N
 #E
 #ORF3a
 #ORF6

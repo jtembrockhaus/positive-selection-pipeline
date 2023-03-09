@@ -83,6 +83,7 @@ include { PRIME_ANALYSIS } from "./processes/prime_analysis.nf"
 include { GET_POSITIONS_UNDER_PS_PER_GENE } from "./processes/get_positions_under_ps_per_gene.nf"
 include { VISUALIZE_PS_GENOMEWIDE } from"./processes/visualize_ps_genomewide.nf"
 include { VISUALIZE_RESULTS } from "./processes/visualize_results.nf"
+include { PIPELINE_REPORT } from "./processes/pipeline_report.nf"
 include { EXTRACT_EVOLUTIONARY_ANNOTATION } from "./processes/extract_evolutionary_annotation.nf"
 include { SUMMARIZE_SELECTION_ANALYSIS } from "./processes/summarize_selection_analysis.nf"
 
@@ -95,6 +96,7 @@ workflow {
   EXTRACT_GENE(sequences_ch, metadata_ch, genes_ch, trim_from_ch, trim_to_ch, n_frac_ch)
   protein_seqs_ch = EXTRACT_GENE.out.protein_seqs_ch
   nuc_seqs_ch = EXTRACT_GENE.out.nuc_seqs_ch
+  copies_ch = EXTRACT_GENE.out.copies_ch
 
   COMPRESS_DUPLICATES(genes_ch, protein_seqs_ch, nuc_seqs_ch)
   protein_seqs_compressed_ch = COMPRESS_DUPLICATES.out.protein_seqs_compressed_ch
@@ -142,7 +144,7 @@ workflow {
   VISUALIZE_PS_GENOMEWIDE(fel_sites_under_ps_ch.collect(), total_sites_ch.collect(), gene_lengths_ch)
   genomewide_ps = VISUALIZE_PS_GENOMEWIDE.out.genomewide_ps
 
-
+  // PIPELINE_REPORT(genes_ch, copies_ch)
 
   // VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
 

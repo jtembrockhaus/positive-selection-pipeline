@@ -1,0 +1,9 @@
+name: pipeline_report
+channels:
+  - anaconda
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.9.12
+  - biopython=1.78
+  - paml=4.9
