@@ -106,7 +106,7 @@ if __name__ == "__main__":
     arguments = argparse.ArgumentParser(description='Create plot to visualize positively selected sites in the entire genome')
     arguments.add_argument('-p', '--sites_ps', required=True, help = 'One or more files with sites under positive selection for a gene', type = str, nargs='+')
     arguments.add_argument('-t', '--sites_total', required=True, help = 'One or more files with the number of total sites of a gene', type = str, nargs='+')
-    arguments.add_argument('-l', '--gene_lengths', required=True, help = 'JSON file containing gene lengths', type = str,)
+    arguments.add_argument('-l', '--gene_lengths', required=True, help = 'JSON file containing gene lengths', type = argparse.FileType('r'))
     args = arguments.parse_args()
     
     # paths_ps = args.sites_ps.replace("[","").replace(", ",",").split(",")

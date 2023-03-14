@@ -10,11 +10,21 @@ process PIPELINE_REPORT {
 
     input:
     val gene
-    path fel_results_ch
-    path meme_results_ch
+    path copies_ch
+    path newick_tree_ch
+    path nuc_msa_filtered_ch
+
+    output:
+    path "pipeline_report.txt", emit: pipeline_report
     
     script:
     """
-    python ${projectDir}/scripts/pipeline_report.py
+    python ${projectDir}/scripts/pipeline_report.py \
+    --gene ${gene} \
+    --pipeline_dir ${projectDir} \
+    --duplicated_seqs ${copies_ch} \
+    --tree ${newick_tree_ch} \
+    --msa ${nuc_msa_filtered_ch} \
+    --output_file pipeline_report.txt
     """
 }

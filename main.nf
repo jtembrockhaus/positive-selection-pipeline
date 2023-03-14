@@ -144,7 +144,7 @@ workflow {
   VISUALIZE_PS_GENOMEWIDE(fel_sites_under_ps_ch.collect(), total_sites_ch.collect(), gene_lengths_ch)
   genomewide_ps = VISUALIZE_PS_GENOMEWIDE.out.genomewide_ps
 
-  // PIPELINE_REPORT(genes_ch, copies_ch)
+  PIPELINE_REPORT(genes_ch, copies_ch, newick_tree_ch, nuc_msa_filtered_ch)
 
   // VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
 
