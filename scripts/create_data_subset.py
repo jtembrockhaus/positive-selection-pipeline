@@ -1,10 +1,14 @@
+#!/usr/bin/env python
 import argparse
 import pandas as pd
 import screed
+from pathlib import Path
 
 
-def get_output_folder(sequences_path):
-    output_folder = "/".join(sequences_path.split("/")[:-1])+"/"
+def create_output_folder(sequences_path, start_date, end_date):
+    root_folder = "/".join(sequences_path.split("/")[:-1])
+    output_folder = f"{root_folder}/{args.start_date}_{args.end_date}/"
+    Path(output_folder).mkdir(parents=True, exist_ok=True)
     return output_folder
 
 
@@ -65,7 +69,7 @@ if __name__ == "__main__":
     arguments.add_argument('--separate', required=True, help = 'Set flag whether or not the output is supposed to be separated into "random" and "suspect" samples', action=argparse.BooleanOptionalAction)
     args = arguments.parse_args()
     
-    output_folder = get_output_folder(args.fasta)
+    output_folder = create_output_folder(args.fasta, args.start_date, args.end_date)
     print("Loading metadata...")
     metadata = load_metadata(args.csv, args.date_col)
     print(f"Creating subset based on time frame {args.start_date} to {args.end_date}...")
@@ -78,20 +82,20 @@ if __name__ == "__main__":
     sequences = load_sequences(args.fasta)
     print(f"Creating output files in folder {output_folder}")
     if args.separate:
-        csv_random = f"random_{args.start_date}_{args.end_date}.csv"
-        csv_suspect = f"suspect_{args.start_date}_{args.end_date}.csv"
+        csv_random = f"random.csv"
+        csv_suspect = f"suspect.csv"
         subset_random.to_csv(f"{output_folder}{csv_random}", index=False)
         subset_suspect.to_csv(f"{output_folder}{csv_suspect}", index=False)
         print(f"New metadata file: {csv_random}")
         print(f"New metadata file: {csv_suspect}")
-        fasta_random = f"random_{args.start_date}_{args.end_date}.fasta"
-        fasta_suspect = f"suspect_{args.start_date}_{args.end_date}.fasta"
+        fasta_random = f"random.fasta"
+        fasta_suspect = f"suspect.fasta"
         create_sequence_subset_file(sequences, subset_random, fasta_random, output_folder, args.seq_id_col)
         create_sequence_subset_file(sequences, subset_suspect, fasta_suspect, output_folder, args.seq_id_col)
     else:
-        csv_subset = f"subset_{args.start_date}_{args.end_date}.csv"
+        csv_subset = f"subset.csv"
         subset_time_frame.to_csv(f"{output_folder}{csv_subset}", index=False)
         print(f"New metadata file: {csv_subset}")
-        fasta_subset = f"subset_{args.start_date}_{args.end_date}.fasta"
+        fasta_subset = f"subset.fasta"
         create_sequence_subset_file(sequences, subset_time_frame, fasta_subset, output_folder, args.seq_id_col)
         
