@@ -1,0 +1,5 @@
+name: pipeline
+channels:
+  - bioconda
+dependencies:
+  - nextflow=22.04.5
