@@ -146,7 +146,7 @@ workflow {
 
   PIPELINE_REPORT(genes_ch, copies_ch, newick_tree_ch, nuc_msa_filtered_ch)
 
-  // VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
+  VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
 
   // EXTRACT_EVOLUTIONARY_ANNOTATION(genes_ch, prime_results_ch, nuc_msa_merged_ch)
 
