@@ -8,7 +8,7 @@ conda activate ps_pipeline
 ```
 The pipeline required specific HyPhy scripts. Therefore the git repository [HyPhy standalone analyses](https://github.com/veg/hyphy-analyses) need to be cloned to this project and saved in the folder `ressources/hyphy-analyses`.
 ```
-git clone https://github.com/veg/hyphy.git ressources/hyphy-analyses
+git clone https://github.com/veg/hyphy-analyses.git ressources/hyphy-analyses
 ```
 
 ## Data 
