@@ -164,7 +164,7 @@ def default_message() {
     Current User:           $workflow.userName
     Nextflow-version:       $nextflow.version
     Starting time:          $nextflow.timestamp
-    Workflow hash:          $workflow.commitId
+    Session ID:             $workflow.sessionId
         --data_dir          $params.data_dir
         --cpus              $params.cpus
     ______________________________________

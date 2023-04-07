@@ -11,7 +11,7 @@
 
 process CREATE_NUC_MSA {
 
-    conda "${projectDir}/envs/create_nuc_msa.yaml"
+    conda "${projectDir}/envs/extract_gene.yaml"
 
     input:
     val gene

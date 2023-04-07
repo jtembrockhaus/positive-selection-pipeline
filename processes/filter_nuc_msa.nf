@@ -9,7 +9,7 @@
 
 process FILTER_NUC_MSA {
 
-    conda "${projectDir}/envs/filter_nuc_msa.yaml"
+    conda "${projectDir}/envs/extract_gene.yaml"
 
     input:
     val gene
