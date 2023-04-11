@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.figure_factory as ff
-from subfuctions import load_json_file
+from subfuctions import load_json_file, convert_nargs_to_list
 
     
 def preprocessing(paths_ps, paths_total):
@@ -109,11 +109,8 @@ if __name__ == "__main__":
     arguments.add_argument('-l', '--gene_lengths', required=True, help = 'JSON file containing gene lengths', type = argparse.FileType('r'))
     args = arguments.parse_args()
     
-    # paths_ps = args.sites_ps.replace("[","").replace(", ",",").split(",")
-    # paths_total = args.sites_total.replace("[","").replace(", ",",").split(",")
-    
-    paths_ps = [x.replace("[","").replace("]","").replace(",","") for x in args.sites_ps]
-    paths_total = [x.replace("[","").replace("]","").replace(",","") for x in args.sites_total]
+    paths_ps = convert_nargs_to_list(args.sites_ps)
+    paths_total = convert_nargs_to_list(args.sites_total)
     
     gene_lengths = load_json_file(args.gene_lengths)
     sites_under_ps, total_sites = preprocessing(paths_ps, paths_total)

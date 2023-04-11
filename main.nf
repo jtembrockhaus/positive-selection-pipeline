@@ -64,6 +64,14 @@ if (!gene_lengths_file.exists()){
 } else {
   gene_lengths_ch = Channel.value("$params.gene_lengths")
 }
+// --single_sites
+sites_file = new File(params.single_sites)
+if (!sites_file.exists()){
+  exit 1, "File $params.single_sites provided for --single_sites does not exist."
+} else {
+  sites = get_genes_from_file(sites_file)
+  single_sites_ch = Channel.from(sites)
+}
 
 /**************************
 * PROCESSES
@@ -83,6 +91,7 @@ include { PRIME_ANALYSIS } from "./processes/prime_analysis.nf"
 include { GET_POSITIONS_UNDER_PS_PER_GENE } from "./processes/get_positions_under_ps_per_gene.nf"
 include { VISUALIZE_PS_GENOMEWIDE } from"./processes/visualize_ps_genomewide.nf"
 include { VISUALIZE_RESULTS } from "./processes/visualize_results.nf"
+include { TEMPORAL_EVOLUTION_PLOT } from "./processes/temporal_evolution_plot.nf"
 include { PIPELINE_REPORT } from "./processes/pipeline_report.nf"
 include { EXTRACT_EVOLUTIONARY_ANNOTATION } from "./processes/extract_evolutionary_annotation.nf"
 include { SUMMARIZE_SELECTION_ANALYSIS } from "./processes/summarize_selection_analysis.nf"
@@ -148,6 +157,8 @@ workflow {
 
   VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
 
+  TEMPORAL_EVOLUTION_PLOT(genes_ch.collect(), single_sites_ch.collect(), protein_msa_ch.collect(), metadata_ch, protein_duplicates_ch.collect())
+
   // EXTRACT_EVOLUTIONARY_ANNOTATION(genes_ch, prime_results_ch, nuc_msa_merged_ch)
 
   // SUMMARIZE_SELECTION_ANALYSIS(genes_ch, slac_results_ch, fel_results_ch, meme_results_ch, fubar_results_ch, nuc_msa_filtered_ch, nuc_msa_variants_duplicates_ch)
@@ -193,6 +204,9 @@ def help_message() {
                                 [default: data/static/padded_gene_intervals.json]
     --gene_lengths              Path to file containing the gene lengths of the reference in codons
                                 [default: data/static/reference_gene_lengths.json]
+    --single_sites              Path to file containing a list of single sites to investigate (e.g. S:501).
+                                Note that the respective genes need to be activated in the gene_list.
+                                [default: configs/single_sites.txt]
 
     Note: Paths of listed folders need to be relative to location of main.nf
 

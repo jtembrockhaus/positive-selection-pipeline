@@ -1,0 +1,6 @@
+# List of sites to generate a temporal evolution plot for
+# in the format Gene:Position.
+# Sites that should not be considered in can be commented
+# out by using the #-symbol.
+#
+S:501

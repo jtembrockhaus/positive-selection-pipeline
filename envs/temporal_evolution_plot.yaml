@@ -1,0 +1,10 @@
+name: temporal_evolution_plot
+channels:
+  - anaconda
+  - plotly
+dependencies:
+  - python=3.9.12
+  - pandas=1.4.3
+  - plotly=5.9.0
+  - biopython=1.78
+  - numpy=1.23.5
