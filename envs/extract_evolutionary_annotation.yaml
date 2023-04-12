@@ -1,9 +1,9 @@
 name: compress_duplicates
 channels:
-  - conda-forge
-  - bioconda
-  - anaconda
   - defaults
+  - anaconda
+  - bioconda
+  - conda-forge
 dependencies:
   - python=3.9.12
   - biopython=1.78

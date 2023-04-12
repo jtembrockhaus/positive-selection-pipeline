@@ -1,8 +1,8 @@
 name: build_tree
 channels:
-  - conda-forge
-  - bioconda
   - defaults
+  - bioconda
+  - conda-forge
 dependencies:
   - seqmagick=0.8.0
   - rapidnj=2.3.2

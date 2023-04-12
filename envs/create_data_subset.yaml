@@ -1,9 +1,9 @@
 name: create_data_subset
 channels:
-  - conda-forge
-  - bioconda
-  - anaconda
   - defaults
+  - anaconda
+  - bioconda
+  - conda-forge
 dependencies:
   - python=3.9.12
   - pandas=1.4.3

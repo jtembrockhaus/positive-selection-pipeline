@@ -1,7 +1,7 @@
 name: extract_gene
 channels:
-  - conda-forge
-  - bioconda
   - defaults
+  - bioconda
+  - conda-forge
 dependencies:
   - hyphy=2.5.19

@@ -1,7 +1,7 @@
 name: pipeline
 channels:
-  - conda-forge
-  - bioconda
   - defaults
+  - bioconda
+  - conda-forge
 dependencies:
   - nextflow=22.04.5

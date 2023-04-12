@@ -1,8 +1,8 @@
 name: create_protein_msa
 channels:
-  - conda-forge
-  - bioconda
   - defaults
+  - bioconda
+  - conda-forge
 dependencies:
   - mafft=7.310
   - python=3.9.12
