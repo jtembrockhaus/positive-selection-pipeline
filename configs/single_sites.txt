@@ -1,5 +1,8 @@
 # List of sites to generate a temporal evolution plot for
 # in the format Gene:Position.
+#
+# Note: Position refers to the Position in the MSA here!
+#
 # Sites that should not be considered in can be commented
 # out by using the #-symbol.
 #
