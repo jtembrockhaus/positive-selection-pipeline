@@ -25,7 +25,7 @@ def shrink_df_by_date(df, start_date, end_date, date_col):
 
 def separate_random_suspect(df):
     random = df[df["SEQ_REASON"] == "N"]
-    suspect = df[df["SEQ_REASON"] != "N"]
+    suspect = df[~df["SEQ_REASON"].isin(["N","X"])]
     return random, suspect
 
 
