@@ -1,8 +1,10 @@
 name: create_data_subset
 channels:
-  - anaconda
+  - conda-forge
   - bioconda
+  - anaconda
+  - defaults
 dependencies:
   - python=3.9.12
   - pandas=1.4.3
-  - screed 1.0.4
+  - screed=1.0.4

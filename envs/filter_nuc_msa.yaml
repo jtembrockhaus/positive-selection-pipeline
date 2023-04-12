@@ -1,6 +1,7 @@
 name: filter_nuc_msa
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
+  - defaults
 dependencies:
   - hyphy=2.5.19

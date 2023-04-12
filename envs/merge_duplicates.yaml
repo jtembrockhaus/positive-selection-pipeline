@@ -1,6 +1,9 @@
 name: merge_duplicates
 channels:
+  - conda-forge
+  - bioconda
   - anaconda
+  - defaults
 dependencies:
   - python=3.9.12
   - biopython=1.78

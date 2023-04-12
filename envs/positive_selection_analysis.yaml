@@ -1,6 +1,7 @@
 name: positive_selection_analysis
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
+  - defaults
 dependencies:
   - hyphy=2.5.42

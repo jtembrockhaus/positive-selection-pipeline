@@ -1,8 +1,9 @@
 name: pipeline_report
 channels:
-  - anaconda
-  - bioconda
   - conda-forge
+  - bioconda
+  - anaconda
+  - defaults
 dependencies:
   - python=3.9.12
   - biopython=1.78
