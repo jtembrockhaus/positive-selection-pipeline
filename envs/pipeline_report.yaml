@@ -1,6 +1,5 @@
 name: pipeline_report
 channels:
-  - defaults
   - anaconda
   - bioconda
   - conda-forge

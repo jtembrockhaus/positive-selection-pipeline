@@ -1,6 +1,5 @@
 name: positive_selection_analysis
 channels:
-  - defaults
   - bioconda
   - conda-forge
 dependencies:
