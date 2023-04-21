@@ -19,6 +19,6 @@ process MEME_ANALYSIS {
     
     script:
     """
-    hyphy meme --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches Internal --output ${gene}_meme_results.json
+    HYPHYMPI meme --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches Internal --CPU=${task.cpus} --output ${gene}_meme_results.json
     """
 }

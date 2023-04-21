@@ -19,6 +19,6 @@ process FEL_ANALYSIS {
     
     script:
     """
-    hyphy fel --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches Internal --output ${gene}_fel_results.json
+    HYPHYMPI fel --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches Internal --CPU=${task.cpus} --output ${gene}_fel_results.json
     """
 }

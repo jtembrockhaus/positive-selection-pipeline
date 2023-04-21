@@ -19,6 +19,6 @@ process FUBAR_ANALYSIS {
     
     script:
     """
-    hyphy fubar --grid 40 --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --output ${gene}_fubar_results.json
+    HYPHYMPI fubar --grid 40 --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --CPU=${task.cpus} --output ${gene}_fubar_results.json
     """
 }
