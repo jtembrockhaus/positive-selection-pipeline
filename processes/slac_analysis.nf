@@ -19,6 +19,6 @@ process SLAC_ANALYSIS {
     
     script:
     """
-    HYPHYMPI slac --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches All --samples 0  --CPU=${task.cpus} --output ${gene}_slac_results.json
+    HYPHYMPI CPU=${task.cpus} slac --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches All --samples 0 --output ${gene}_slac_results.json
     """
 }
