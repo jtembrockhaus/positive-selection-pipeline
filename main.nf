@@ -137,8 +137,8 @@ workflow {
   FEL_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   fel_results_ch = FEL_ANALYSIS.out.fel_results_ch
 
-  MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
-  meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
+  // MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  // meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
 
   // FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   // fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
@@ -155,7 +155,7 @@ workflow {
 
   PIPELINE_REPORT(genes_ch, copies_ch, newick_tree_ch, nuc_msa_filtered_ch)
 
-  VISUALIZE_RESULTS(genes_ch, fel_results_ch, meme_results_ch)
+  VISUALIZE_RESULTS(genes_ch, fel_results_ch)//, meme_results_ch)
 
   TEMPORAL_EVOLUTION_PLOT(genes_ch.collect(), single_sites_ch.collect(), protein_msa_ch.collect(), metadata_ch, protein_duplicates_ch.collect())
 
