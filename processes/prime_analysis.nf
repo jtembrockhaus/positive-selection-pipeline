@@ -18,6 +18,6 @@ process PRIME_ANALYSIS {
     
     script:
     """
-    HYPHYMPI CPU=${task.cpus} prime --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches Internal --output ${gene}_prime_results.json
+    hyphy CPU=${task.cpus} prime --alignment ${nuc_msa_filtered_ch} --tree ${newick_tree_ch} --branches Internal --output ${gene}_prime_results.json
     """
 }
