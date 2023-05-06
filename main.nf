@@ -157,7 +157,7 @@ workflow {
 
   VISUALIZE_RESULTS(genes_ch, fel_results_ch)//, meme_results_ch)
 
-  TEMPORAL_EVOLUTION_PLOT(genes_ch.collect(), single_sites_ch.collect(), protein_msa_ch.collect(), metadata_ch, protein_duplicates_ch.collect())
+  // TEMPORAL_EVOLUTION_PLOT(genes_ch.collect(), single_sites_ch.collect(), protein_msa_ch.collect(), metadata_ch, protein_duplicates_ch.collect())
 
   // EXTRACT_EVOLUTIONARY_ANNOTATION(genes_ch, prime_results_ch, nuc_msa_merged_ch)
 
