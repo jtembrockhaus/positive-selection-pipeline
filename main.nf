@@ -140,8 +140,8 @@ workflow {
   // MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   // meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
 
-  // FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
-  // fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
+  FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
 
   // PRIME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   // prime_results_ch = PRIME_ANALYSIS.out.prime_results_ch
