@@ -7,3 +7,4 @@ dependencies:
   - mafft=7.310
   - python=3.9.12
   - biopython=1.78
+  - pandas=1.4.3

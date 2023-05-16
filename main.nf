@@ -115,6 +115,7 @@ workflow {
 
   CREATE_PROTEIN_MSA(genes_ch, protein_seqs_compressed_ch)
   protein_msa_ch = CREATE_PROTEIN_MSA.out.protein_msa_ch
+  position_map_table = CREATE_PROTEIN_MSA.out.position_map_table
 
   CREATE_NUC_MSA(genes_ch, protein_msa_ch, nuc_seqs_ch)
   nuc_msa_compressed_ch = CREATE_NUC_MSA.out.nuc_msa_compressed_ch
