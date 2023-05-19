@@ -318,7 +318,7 @@ if __name__ == "__main__":
         save_fel_df(df, args.gene)
         codons_per_subplot = 100
         save_mle_figure(df, codons_per_subplot, args.gene)
-        # save_rd_figure(df, args.gene)
+        save_rd_figure(df, args.gene)
         
     if args.meme:
         json_dict = load_json_file(args.meme)
