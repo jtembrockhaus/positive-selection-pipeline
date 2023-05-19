@@ -46,9 +46,14 @@ def censoring_at_10(value):
         return value
     else:
         return 10
+    
+def get_position_map_table(path):
+    df_pos_map = pd.read_csv(path, sep="\t")#, dtype={'reference': str})
+    df_pos_map.rename(columns={'reference': 'site_reference', 'msa': 'site'}, inplace=True)
+    return df_pos_map
         
 # preprocess FEL data
-def preprocessing_fel(json_dict):
+def preprocessing_fel(json_dict, df_pos_map):
     df = pd.DataFrame(data=json_dict["MLE"]["content"]["0"])
     df.columns = [x[0] for x in json_dict["MLE"]["headers"]]
     df.insert(loc=0, column="site", value=df.index+1)
@@ -71,7 +76,8 @@ def preprocessing_fel(json_dict):
     df["dNdS"].replace([np.inf, -np.inf], np.nan, inplace=True) # inf occurs when diving x by 0
     df["dNdS_censored"] = df["dNdS"].apply(lambda x: censoring_at_10(x))
     df["alpha"] = df["alpha"].apply(lambda x: x*-1)
-    return df
+    df_merged = pd.merge(df, df_pos_map, on="site", how="left")
+    return df_merged
 
 # preprocess MEME data
 def preprocessing_meme(json_dict):
@@ -121,14 +127,14 @@ def setup_mle_legend(fig, classes_color_dict):
     return fig
     
 # create figure for MLE visualization of FEL results
-def create_mle_figure(df, fig, codons, number_subplots, codons_per_subplot):
+def create_mle_figure(df, fig, codons, number_subplots, codons_per_subplot, site_column):
     for i in range(1, number_subplots+1):
         df_subset = create_subset(df, i, codons, number_subplots, codons_per_subplot)
         # MLE synonymous rate (α) and non-synonymous rate (β)
         for col in ["alpha", "beta"]:
             fig.add_trace(
                 go.Bar(
-                    x=df_subset["site"],
+                    x=df_subset[site_column],
                     y=df_subset[col],
                     marker_color=list(map(assign_colors, df_subset["class"])),
                     showlegend=False,
@@ -138,7 +144,7 @@ def create_mle_figure(df, fig, codons, number_subplots, codons_per_subplot):
         # Estimates under the null model (α=β)
         fig.add_trace(
             go.Bar(
-                x=df_subset["site"],
+                x=df_subset[site_column],
                 y=df_subset["alpha=beta"],
                 base=df_subset["alpha=beta_base"],
                 marker_color='dimgray',
@@ -264,7 +270,7 @@ def create_histogram_figure(df, fig, variable, codons, number_subplots, codons_p
 
 # save data frame with desired columns as TSV file   
 def save_fel_df(df, gene):
-    columns_to_keep = ["site", "alpha", "beta", "alpha=beta", "LRT",
+    columns_to_keep = ["site", "site_reference", "alpha", "beta", "alpha=beta", "LRT",
                        "p-value", "Total branch length", "p-asmp", "class"]
     df = df[columns_to_keep]
     df["alpha"] = df["alpha"].apply(lambda x: x*-1)
@@ -272,9 +278,16 @@ def save_fel_df(df, gene):
 
 # create MLE plot and save it into HTML file            
 def save_mle_figure(df, codons_per_subplot, gene):
+    # create figure with MSA positions
     fig, codons, number_subplots = setup_subplots_mle(df, codons_per_subplot)
-    fig = create_mle_figure(df, fig, codons, number_subplots, codons_per_subplot)
+    fig = create_mle_figure(df, fig, codons, number_subplots, codons_per_subplot, "site")
     fig.write_html(gene+"_FEL_mle.html")
+    # create figure only with reference_positions
+    df.drop(df[df["site_reference"] % 1 != 0].index, inplace=True)
+    df = df.astype({'site_reference':'int'})
+    fig, codons, number_subplots = setup_subplots_mle(df, codons_per_subplot)
+    fig = create_mle_figure(df, fig, codons, number_subplots, codons_per_subplot, "site_reference")
+    fig.write_html(gene+"_FEL_mle_with_ref_positions.html")
     
 # create rate density plot and save it into HTML file    
 def save_rd_figure(df, gene):
@@ -295,15 +308,17 @@ if __name__ == "__main__":
     arguments.add_argument('-g', '--gene',   help = 'Name of the gene', type = str,)
     arguments.add_argument('-f', '--fel',   help = 'FEL analysis results in JSON format', type = argparse.FileType('r'))
     arguments.add_argument('-m', '--meme',   help = 'MEME analysis results in JSON format', type = argparse.FileType('r'))
+    arguments.add_argument('-p', '--position_map',   help = 'Mapping of MSA to reference postitions', type = argparse.FileType('r'))
     args = arguments.parse_args()
     
     if args.fel:
         json_dict = load_json_file(args.fel)
-        df = preprocessing_fel(json_dict)
-        codons_per_subplot = 100
+        df_pos_map = get_position_map_table(args.position_map)
+        df = preprocessing_fel(json_dict, df_pos_map)
         save_fel_df(df, args.gene)
+        codons_per_subplot = 100
         save_mle_figure(df, codons_per_subplot, args.gene)
-        save_rd_figure(df, args.gene)
+        # save_rd_figure(df, args.gene)
         
     if args.meme:
         json_dict = load_json_file(args.meme)
