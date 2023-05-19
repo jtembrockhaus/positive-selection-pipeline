@@ -115,7 +115,7 @@ workflow {
 
   CREATE_PROTEIN_MSA(genes_ch, protein_seqs_compressed_ch)
   protein_msa_ch = CREATE_PROTEIN_MSA.out.protein_msa_ch
-  position_map_table = CREATE_PROTEIN_MSA.out.position_map_table
+  position_map_table_ch = CREATE_PROTEIN_MSA.out.position_map_table
 
   CREATE_NUC_MSA(genes_ch, protein_msa_ch, nuc_seqs_ch)
   nuc_msa_compressed_ch = CREATE_NUC_MSA.out.nuc_msa_compressed_ch
@@ -156,7 +156,7 @@ workflow {
 
   PIPELINE_REPORT(genes_ch, copies_ch, newick_tree_ch, nuc_msa_filtered_ch)
 
-  VISUALIZE_RESULTS(genes_ch, fel_results_ch)//, meme_results_ch)
+  VISUALIZE_RESULTS(genes_ch, fel_results_ch, position_map_table_ch)//, meme_results_ch)
 
   // TEMPORAL_EVOLUTION_PLOT(genes_ch.collect(), single_sites_ch.collect(), protein_msa_ch.collect(), metadata_ch, protein_duplicates_ch.collect())
 

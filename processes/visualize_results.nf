@@ -11,6 +11,7 @@ process VISUALIZE_RESULTS {
     input:
     val gene
     path fel_results_ch
+    path position_map_table_ch
     //path meme_results_ch
     
     script:
@@ -18,6 +19,6 @@ process VISUALIZE_RESULTS {
     // python ${projectDir}/scripts/visualize_results.py --gene ${gene} --fel ${fel_results_ch} --meme ${meme_results_ch}
     // """
     """
-    python ${projectDir}/scripts/visualize_results.py --gene ${gene} --fel ${fel_results_ch}
+    python ${projectDir}/scripts/visualize_results.py --gene ${gene} --fel ${fel_results_ch} --position_map ${position_map_table_ch}
     """
 }
