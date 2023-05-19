@@ -132,14 +132,14 @@ workflow {
   BUILD_TREE(genes_ch, nuc_msa_filtered_ch)
   newick_tree_ch = BUILD_TREE.out.newick_tree_ch
 
-  // SLAC_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
-  // slac_results_ch = SLAC_ANALYSIS.out.slac_results_ch
+  SLAC_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  slac_results_ch = SLAC_ANALYSIS.out.slac_results_ch
 
   FEL_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   fel_results_ch = FEL_ANALYSIS.out.fel_results_ch
 
-  // MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
-  // meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
+  MEME_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
+  meme_results_ch = MEME_ANALYSIS.out.meme_results_ch
 
   FUBAR_ANALYSIS(genes_ch, nuc_msa_filtered_ch, newick_tree_ch)
   fubar_results_ch = FUBAR_ANALYSIS.out.fubar_results_ch
